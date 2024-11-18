@@ -1,0 +1,44 @@
+<app-header title="Login"></app-header>
+<ion-content>
+  <div class="d-flex-center">
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="auth-form" (keypress.enter)="submit()">
+      
+      <app-logo></app-logo>
+
+      <app-login-input 
+      autocomplete="email"
+      type="email"
+      label="email"
+      icon="mail-outline"
+      [control]="form.controls.email"
+      ></app-login-input>
+
+      <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
+        <p *ngIf="form.controls.email.errors?.['required']">Email is required</p>
+        <p *ngIf="form.controls.email.errors?.['email']">Invalid email format</p>
+      </div>
+
+      <app-login-input
+      type="password"
+      label="password"
+      icon="lock-closed-outline"
+      [control]="form.controls.password"
+      ></app-login-input>
+
+      <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
+        <p *ngIf="form.controls.password.errors?.['required']">password is required</p>
+      </div>
+
+      <div routerLink="forgot-password">Forgot password?</div>
+
+      <ion-button class="submit" type="submit" expand="block" mode="ios" fill="outline" [disabled]="form.invalid">
+        Login
+      </ion-button>
+      <ion-button routerLink="sing-up" class="ion-margin-top" expand="block" mode="ios" fill="outline">
+        Check In
+      </ion-button>
+
+    </form>
+  </div>
+</ion-content>
