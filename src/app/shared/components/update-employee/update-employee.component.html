@@ -1,4 +1,4 @@
-<app-header [isModal]="true" title="this title"></app-header>
+<app-header [isModal]="true" [title]="employee? 'Update employee': 'Add employee'"></app-header>
 
 <ion-content>
 
@@ -27,9 +27,10 @@
 
       <app-login-input 
       autocomplete="salary"
-      type="text"
+      type="nomber"
       label="salary"
       [control]="form.controls.salary"
+      (ionInput)="setNumberInput()"
       ></app-login-input>
 
       <div class="validators" *ngIf="form.controls.salary.errors && form.controls.salary.touched">
@@ -60,7 +61,7 @@
       </div>
 
       <ion-button class="submit" type="submit" expand="block" mode="ios" [disabled]="form.invalid">
-        Add Employee
+        {{employee? 'Update employee': 'Add employee'}}
         <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
       </ion-button>
 

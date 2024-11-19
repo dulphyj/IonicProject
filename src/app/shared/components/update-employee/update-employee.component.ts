@@ -1,5 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Employees } from 'src/app/models/employees.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -11,6 +12,8 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class UpdateEmployeeComponent  implements OnInit {
 
+  @Input() employee: Employees | undefined
+
   firebaseService = inject(FirebaseService)
   utilsService = inject(UtilsService)
   
@@ -20,37 +23,33 @@ export class UpdateEmployeeComponent  implements OnInit {
     id: new FormControl(''),
     name: new FormControl('', [Validators.required]),
     img: new FormControl('', [Validators.required]),
-    salary: new FormControl('', [Validators.required, Validators.min(0)]),
+    salary: new FormControl(0, [Validators.required, Validators.min(0)]),
     position: new FormControl('', [Validators.required]),
     staff: new FormControl('', [Validators.required])
   })
 
   ngOnInit() {
     this.user = this.utilsService.getLocalStorage('user')
+    if(this.employee) this.form.setValue(this.employee)
+  }
+
+  setNumberInput() {
+    let { salary } = this.form.controls;
+    if (salary.value !== null && salary.value !== undefined) {
+      const parsedValue = parseFloat(salary.value.toString());
+      if (!isNaN(parsedValue)) {
+        salary.setValue(parsedValue);
+      } else {
+        console.error('The entered value is not valid: ', salary.value);
+      }
+    }
   }
 
   async submit(){
-    this.createEmployee()
-    console.log(this.form.value)
-    /*if (this.form.valid) {
-      const loading = await this.utilsService.loading()
-      await loading.present()
-
-      this.firebaseService.signIn(this.form.value as User)
-      .then(resp => {
-        this.getUserInfo(resp.user.uid)
-      }).catch(
-        err => {
-          this.utilsService.presentToast({
-            message: err.message,
-            duration: 2000,
-            position: 'top',
-            color: 'danger',
-            icon: 'alert-circle-outline'
-          })
-        }
-      ).finally(()=> loading.dismiss())
-    }*/
+    if(this.form.valid){
+      if(this.employee) this.updateEmployee();
+      else this.createEmployee();
+    }
   }
 
   async createEmployee(){
@@ -72,6 +71,44 @@ export class UpdateEmployeeComponent  implements OnInit {
       this.utilsService.dismissModal({success: true})
       this.utilsService.presentToast({
         message: `Employee created successfully.`,
+        duration: 2000,
+        position: 'top',
+        color: 'primary',
+        icon: 'checkmark-circle-outline'
+      })
+      }).catch(
+      err => {
+        this.utilsService.presentToast({
+          message: err.message,
+          duration: 2000,
+          position: 'top',
+          color: 'danger',
+          icon: 'alert-circle-outline'
+        })
+      }
+    ).finally(()=> loading.dismiss())
+  }
+
+  async updateEmployee(){
+    let path = `user/${this.user.uid}/employee/${this.employee?.id}`
+    const loading = await this.utilsService.loading()
+    await loading.present()
+
+    if(this.employee?.img && this.form.value.img !== this.employee?.img){
+      let dataUrl = this.form.value.img;
+      let imgPath = await this.firebaseService.getFilePath(this.employee.img);
+      let imgUrl = await this.firebaseService.updateImg(imgPath, dataUrl)
+      this.form.controls.img.setValue(imgUrl);
+    }
+
+    const formData = {...this.form.value}
+    delete formData.id
+
+    this.firebaseService.updateDocument(path, formData)
+    .then(async =>{
+      this.utilsService.dismissModal({success: true})
+      this.utilsService.presentToast({
+        message: `Employee updated successfully.`,
         duration: 2000,
         position: 'top',
         color: 'primary',

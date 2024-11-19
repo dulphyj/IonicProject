@@ -28,6 +28,7 @@ export class HomePage implements OnInit {
   }
 
   async addUpdateEmployee(employee?: Employees){
+    console.log(employee)
     let modal = await this.utilsService.getModal({
       component: UpdateEmployeeComponent,
       cssClass: 'add-update-modal',

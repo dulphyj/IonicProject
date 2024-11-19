@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { addDoc, collection, doc, getDoc, getFirestore, setDoc } from '@angular/fire/firestore';
+import { addDoc, collection, doc, getDoc, getFirestore, setDoc, updateDoc } from '@angular/fire/firestore';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from 'firebase/auth';
 import { User } from '../models/user.model';
 import { UtilsService } from './utils.service';
@@ -72,4 +72,11 @@ export class FirebaseService {
     return this.dataRef;
   }
 
+  async getFilePath(url: string){
+    return ref(getStorage(), url).fullPath
+  }
+
+  updateDocument(path: any, data: any){
+    return updateDoc(doc(getFirestore(), path), data)
+  }
 }
