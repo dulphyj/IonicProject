@@ -32,11 +32,13 @@ export class SingUpPage implements OnInit {
       await loading.present()
 
       this.firebaseService.singUp(this.form.value as User)
-      .then(resp => {
-        this.firebaseService.updateUser(this.form.value.name)
-        let uid = resp.user.uid
-        this.form.controls.uid.setValue(uid)
+      .then(async resp => {
+        const uid = resp.user.uid;
+        this.form.controls.uid.setValue(uid);
+
+        await this.firebaseService.updateUser(this.form.value.name)
         this.setUserInfo(uid)
+
         }).catch(
         err => {
           this.utilsService.presentToast({
@@ -55,12 +57,18 @@ export class SingUpPage implements OnInit {
       const loading = await this.utilsService.loading()
       await loading.present()
 
+      const userData = {
+        uid,
+        name: this.form.value.name,
+        email: this.form.value.email,
+        img: '', // Si tienes imágenes, inicialízala aquí.
+      };
       let path = `user/${uid}`
-      delete this.form.value.password
+      
 
-      this.firebaseService.setDocument(path, this.form.value)
-      .then(resp => {
-        this.utilsService.saveLocalStorage('user', this.form.value)
+      this.firebaseService.setDocument(path, userData)
+      .then(() => {
+        this.utilsService.saveLocalStorage('user', userData)
         this.utilsService.routerlink('main/home')
         this.form.reset();
         }).catch(
