@@ -18,7 +18,7 @@ export class UpdateEmployeeComponent  implements OnInit {
   form = new FormGroup({
     id: new FormControl(''),
     name: new FormControl('', [Validators.required]),
-    //img: new FormControl('', [Validators.required]),
+    img: new FormControl('', [Validators.required]),
     salary: new FormControl('', [Validators.required, Validators.min(0)]),
     position: new FormControl('', [Validators.required]),
     squad: new FormControl('', [Validators.required])
@@ -49,4 +49,21 @@ export class UpdateEmployeeComponent  implements OnInit {
       ).finally(()=> loading.dismiss())
     }*/
   }
+
+  async takeImage() {
+    const photo = await this.utilsService.takePicture('image');
+    if (photo.dataUrl) {
+      this.form.controls.img.setValue(photo.dataUrl);
+    } else {
+      this.utilsService.presentToast({
+        message: 'Could not get image.',
+        duration: 2000,
+        position: 'top',
+        color: 'danger',
+        icon: 'alert-circle-outline'
+      });
+    }
+  }
+  
+
 }

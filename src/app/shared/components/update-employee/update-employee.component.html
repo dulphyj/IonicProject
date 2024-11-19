@@ -4,6 +4,15 @@
 
     <form [formGroup]="form" (ngSubmit)="submit()" class="ion-padding ion-text-center" (keypress.enter)="submit()">
       
+      <ion-avatar *ngIf="form.value.img">
+        <img [src]="form.value.img" alt="img">
+      </ion-avatar>
+      <ion-icon class="img-icon" *ngIf="!form.value.img" name="image-outline"></ion-icon>
+      <br>
+      <ion-button (click)="takeImage()" mode="ios" size="small" shape="round">
+        Take a picture
+      </ion-button>
+
       <app-login-input 
       autocomplete="name"
       type="text"
