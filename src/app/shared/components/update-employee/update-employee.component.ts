@@ -14,6 +14,7 @@ export class UpdateEmployeeComponent  implements OnInit {
   firebaseService = inject(FirebaseService)
   utilsService = inject(UtilsService)
   
+  user = {} as User
 
   form = new FormGroup({
     id: new FormControl(''),
@@ -25,9 +26,11 @@ export class UpdateEmployeeComponent  implements OnInit {
   })
 
   ngOnInit() {
+    this.user = this.utilsService.getLocalStorage('user')
   }
 
   async submit(){
+    this.createEmployee()
     console.log(this.form.value)
     /*if (this.form.valid) {
       const loading = await this.utilsService.loading()
@@ -48,6 +51,43 @@ export class UpdateEmployeeComponent  implements OnInit {
         }
       ).finally(()=> loading.dismiss())
     }*/
+  }
+
+  async createEmployee(){
+    let path = `user/${this.user.uid}/employee`
+    const loading = await this.utilsService.loading()
+    await loading.present()
+    
+    let dataUrl = this.form.value.img;
+    let imgPath = `${this.user.uid}/${Date.now}`;
+    let imgUrl = await this.firebaseService.updateImg(imgPath, dataUrl)
+    
+    this.form.controls.img.setValue(imgUrl);
+
+    const employeeData = { ...this.form.value };
+    delete employeeData.id;
+
+    this.firebaseService.addDocument(path, employeeData)
+    .then(async =>{
+      this.utilsService.dismissModal({success: true})
+      this.utilsService.presentToast({
+        message: `Employee created successfully.`,
+        duration: 2000,
+        position: 'top',
+        color: 'primary',
+        icon: 'checkmark-circle-outline'
+      })
+      }).catch(
+      err => {
+        this.utilsService.presentToast({
+          message: err.message,
+          duration: 2000,
+          position: 'top',
+          color: 'danger',
+          icon: 'alert-circle-outline'
+        })
+      }
+    ).finally(()=> loading.dismiss())
   }
 
   async takeImage() {
