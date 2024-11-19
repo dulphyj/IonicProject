@@ -49,14 +49,14 @@
       </div>
 
       <app-login-input 
-      autocomplete="squad"
+      autocomplete="staff"
       type="text"
-      label="squad"
-      [control]="form.controls.squad"
+      label="staff"
+      [control]="form.controls.staff"
       ></app-login-input>
 
-      <div class="validators" *ngIf="form.controls.salary.errors && form.controls.squad.touched">
-        <p *ngIf="form.controls.squad.errors?.['required']">squad is required</p>
+      <div class="validators" *ngIf="form.controls.salary.errors && form.controls.staff.touched">
+        <p *ngIf="form.controls.staff.errors?.['required']">staff is required</p>
       </div>
 
       <ion-button class="submit" type="submit" expand="block" mode="ios" [disabled]="form.invalid">

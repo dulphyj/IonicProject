@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { map } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { Employees } from 'src/app/models/employees.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -16,14 +16,15 @@ export class HomePage implements OnInit {
   firebaseService = inject(FirebaseService)
   loading: boolean = false
   employees: Employees[] = []
+  private subscription: Subscription | null = null
 
 
   ngOnInit() {
-    //this.getEmployee()
+    this.getEmployee();
   }
 
-  ionViewWillEnter() {
-    this.getEmployee()
+  ngOnDestroy(){
+    this.subscription?.unsubscribe();
   }
 
   async addUpdateEmployee(employee?: Employees){
@@ -42,19 +43,23 @@ export class HomePage implements OnInit {
     let path = `user/${this.user().uid}/employee`
     this.loading = true
 
-    let sub = this.firebaseService.getCollectionData(path)
+    this.subscription = this.firebaseService.getCollectionData(path)
     .snapshotChanges().pipe(
       map(change => change.map(c => ({
         id: c.payload.doc.id,
-        data: c.payload.doc.data()
+        ...c.payload.doc.data()
       })))
     ).subscribe({
       next: (resp: any) => {
         this.employees = resp
-        console.log(this.employees)
         this.loading = false
-        sub.unsubscribe()
       }
     })
+  }
+
+  doRefresh(event: any){
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000)
   }
 }

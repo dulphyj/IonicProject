@@ -22,7 +22,7 @@ export class UpdateEmployeeComponent  implements OnInit {
     img: new FormControl('', [Validators.required]),
     salary: new FormControl('', [Validators.required, Validators.min(0)]),
     position: new FormControl('', [Validators.required]),
-    squad: new FormControl('', [Validators.required])
+    staff: new FormControl('', [Validators.required])
   })
 
   ngOnInit() {
@@ -59,7 +59,7 @@ export class UpdateEmployeeComponent  implements OnInit {
     await loading.present()
     
     let dataUrl = this.form.value.img;
-    let imgPath = `${this.user.uid}/${Date.now}`;
+    let imgPath = `${this.user.uid}/${Date.now()}`;
     let imgUrl = await this.firebaseService.updateImg(imgPath, dataUrl)
     
     this.form.controls.img.setValue(imgUrl);
