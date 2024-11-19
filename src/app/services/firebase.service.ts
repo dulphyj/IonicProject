@@ -15,6 +15,7 @@ export class FirebaseService {
   firestore = inject(AngularFirestore)
   utils = inject(UtilsService)
 
+
   getAuth(){
     return getAuth();
   }
