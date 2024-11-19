@@ -1,5 +1,59 @@
 <app-header [isModal]="true" title="this title"></app-header>
 
 <ion-content>
-  hola caporal
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="ion-padding ion-text-center" (keypress.enter)="submit()">
+      
+      <app-login-input 
+      autocomplete="name"
+      type="text"
+      label="name"
+      [control]="form.controls.name"
+      ></app-login-input>
+
+      <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+        <p *ngIf="form.controls.name.errors?.['required']">name is required</p>
+        <p *ngIf="form.controls.name.errors?.['minLength']">Invalid name format</p>
+      </div>
+
+      <app-login-input 
+      autocomplete="salary"
+      type="text"
+      label="salary"
+      [control]="form.controls.salary"
+      ></app-login-input>
+
+      <div class="validators" *ngIf="form.controls.salary.errors && form.controls.salary.touched">
+        <p *ngIf="form.controls.salary.errors?.['required']">salary is required</p>
+        <p *ngIf="form.controls.salary.errors?.['min']">the salary must be greater than 0</p>
+      </div>
+
+      <app-login-input 
+      autocomplete="position"
+      type="text"
+      label="position"
+      [control]="form.controls.position"
+      ></app-login-input>
+
+      <div class="validators" *ngIf="form.controls.salary.errors && form.controls.position.touched">
+        <p *ngIf="form.controls.position.errors?.['required']">position is required</p>
+      </div>
+
+      <app-login-input 
+      autocomplete="squad"
+      type="text"
+      label="squad"
+      [control]="form.controls.squad"
+      ></app-login-input>
+
+      <div class="validators" *ngIf="form.controls.salary.errors && form.controls.squad.touched">
+        <p *ngIf="form.controls.squad.errors?.['required']">squad is required</p>
+      </div>
+
+      <ion-button class="submit" type="submit" expand="block" mode="ios" [disabled]="form.invalid">
+        Add Employee
+        <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
+      </ion-button>
+
+    </form>
 </ion-content>
