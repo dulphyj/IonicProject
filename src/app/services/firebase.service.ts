@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { addDoc, collection, doc, getDoc, getFirestore, setDoc } from '@angular/fire/firestore';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from 'firebase/auth';
 import { User } from '../models/user.model';
@@ -15,6 +15,7 @@ export class FirebaseService {
   auth = inject(AngularFireAuth)
   firestore = inject(AngularFirestore)
   utils = inject(UtilsService)
+  dataRef : AngularFirestoreCollection<User> | undefined
 
 
   getAuth(){
@@ -64,6 +65,11 @@ export class FirebaseService {
     .then(() => {
       return getDownloadURL(ref(getStorage(), path))
     })
+  }
+
+  getCollectionData(path: any): AngularFirestoreCollection<User>{
+    this.dataRef = this.firestore.collection(path, ref => ref.orderBy('name', 'asc'));
+    return this.dataRef;
   }
 
 }
