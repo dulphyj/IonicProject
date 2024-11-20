@@ -63,4 +63,58 @@ export class HomePage implements OnInit {
       event.target.complete();
     }, 1000)
   }
+
+  async deleteEmployee(employee: Employees){
+    let path = `user/${this.user().uid}/employee/${employee.id}`
+    const loading = await this.utilsService.loading()
+    await loading.present()
+
+    let imgPath = await this.firebaseService.getFilePath(employee.img)
+    await this.firebaseService.deleteFile(imgPath)
+
+    this.firebaseService.deleteDocument(path)
+    .then(async =>{
+      this.utilsService.dismissModal({success: true})
+      this.utilsService.presentToast({
+        message: `Employee deleted successfully.`,
+        duration: 2000,
+        position: 'top',
+        color: 'primary',
+        icon: 'checkmark-circle-outline'
+      })
+      }).catch(
+      err => {
+        this.utilsService.presentToast({
+          message: err.message,
+          duration: 2000,
+          position: 'top',
+          color: 'danger',
+          icon: 'alert-circle-outline'
+        })
+      }
+    ).finally(()=> loading.dismiss())
+  }
+
+  async confirmDeleteEmployee(employee: Employees){
+    this.utilsService.presentAlert({
+      header: 'Delete Employee',
+      message: `Are you sure you want to delete ${employee.name}?`,
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass:'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Delete',
+          handler: () => {
+            this.deleteEmployee(employee)
+          }
+        }
+      ]
+    })
+  }
 }
