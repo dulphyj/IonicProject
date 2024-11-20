@@ -6,6 +6,17 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+  <ion-card mode="ios" color="warning" class="d-flex-center ion-text-center" *ngIf="!loading && employees">
+    <div>
+      <h4>{{employees.length}}</h4>
+      <p>employees</p>
+    </div>
+    <div>
+      <h4>{{getBills() | currency: 'USD'}}</h4>
+      <p>Salary</p>
+    </div>
+  </ion-card>
+
   <ion-list *ngIf="!loading">
     <ion-item-sliding class="product-item" *ngFor="let employee of employees">
       <ion-item>

@@ -117,4 +117,8 @@ export class HomePage implements OnInit {
       ]
     })
   }
+
+  getBills(){
+    return this.employees.reduce((index, employee) => index + employee.salary, 0)
+  }
 }
