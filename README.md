@@ -1,4 +1,5 @@
 Eleva tus conocimientos al siguiente nivel: IONIC CAPACITOR, LOGIN, ANGULAR, FIREBASE, SASS, PRODUCCION PLAYSTORE
+
 Welcome to the repository for the Udemy course: Eleva tus conocimientos al siguiente nivel: IONIC CAPACITOR, LOGIN, ANGULAR, FIREBASE, SASS, PRODUCCION PLAYSTORE. This course is designed to take your skills to the next level by helping you build powerful mobile applications with Ionic, Capacitor, Angular, Firebase, and SASS, and guide you through deploying your app to the Play Store.
 
 Table of Contents
@@ -21,21 +22,17 @@ Play Store Deployment: Learn how to package your app and deploy it to the Google
 Installation
 Clone the repository:
 
-bash
 git clone https://github.com/dulphyj/IonicProject.git
 Install dependencies:
 
-bash
 cd ionic-capacitor-login-angular-firebase
 npm install
 Install Ionic and Capacitor CLI globally (if not already installed):
 
-bash
 npm install -g @ionic/cli
 npm install @capacitor/cli
 Initialize the Capacitor project:
 
-bash
 ionic init
 Set up Firebase in your project:
 
@@ -46,15 +43,12 @@ To run the app locally on your device or emulator, use the following commands:
 
 Run in a browser:
 
-bash
 ionic serve
 Run on Android (requires Android Studio setup):
 
-bash
 ionic capacitor run android
 Run on iOS (requires Xcode and an Apple Developer account):
 
-bash
 ionic capacitor run ios
 Contributing
 If you would like to contribute to this project, feel free to fork the repository, create a branch, and submit a pull request. We welcome all improvements and bug fixes!
