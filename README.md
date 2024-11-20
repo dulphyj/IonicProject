@@ -1,57 +1,61 @@
-Eleva tus conocimientos al siguiente nivel: IONIC CAPACITOR, LOGIN, ANGULAR, FIREBASE, SASS, PRODUCCION PLAYSTORE
+# Elevate Your Skills to the Next Level: IONIC CAPACITOR, LOGIN, ANGULAR, FIREBASE, SASS, PLAYSTORE DEPLOYMENT
 
-Welcome to the repository for the Udemy course: Eleva tus conocimientos al siguiente nivel: IONIC CAPACITOR, LOGIN, ANGULAR, FIREBASE, SASS, PRODUCCION PLAYSTORE. This course is designed to take your skills to the next level by helping you build powerful mobile applications with Ionic, Capacitor, Angular, Firebase, and SASS, and guide you through deploying your app to the Play Store.
+Welcome to the repository for the **Udemy course**: *Elevate Your Skills to the Next Level: IONIC CAPACITOR, LOGIN, ANGULAR, FIREBASE, SASS, PLAYSTORE DEPLOYMENT*. This course is designed to take your skills to the next level, teaching you how to build powerful mobile applications with **Ionic**, **Capacitor**, **Angular**, **Firebase**, **SASS**, and how to deploy your app on **Play Store**.
 
-Table of Contents
-Course Overview
-Technologies Covered
-Installation
-Usage
-Contributing
-License
-Course Overview
-In this course, we dive into the development of modern mobile applications using Ionic and Capacitor. Learn how to integrate Angular with Firebase for building a complete app with authentication, user login, and storage. We'll also cover using SASS for styling and how to prepare your app for production and deployment on the Google Play Store.
+## Table of Contents
+- [Course Description](#course-description)
+- [Covered Technologies](#covered-technologies)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributions](#contributions)
+- [License](#license)
 
-Technologies Covered
-Ionic: Build cross-platform mobile apps using web technologies.
-Capacitor: Native runtime for Ionic apps, providing access to native device features.
-Angular: Framework for building scalable and maintainable applications.
-Firebase: Real-time database, authentication, and cloud functions.
-SASS: Preprocessor for styling, making CSS easier and more flexible.
-Play Store Deployment: Learn how to package your app and deploy it to the Google Play Store.
-Installation
-Clone the repository:
+## Course Description
+In this course, we dive into building modern mobile applications using **Ionic** and **Capacitor**. You will learn how to integrate **Angular** with **Firebase** to build a complete app with user authentication, login, and data storage. We will also cover the use of **SASS** for styling and how to prepare your app for production and deploy it on the **Google Play Store**.
 
-git clone https://github.com/dulphyj/IonicProject.git
-Install dependencies:
+## Covered Technologies
+- **Ionic**: Build cross-platform mobile apps using web technologies.
+- **Capacitor**: A native runtime for Ionic apps, providing access to native device features.
+- **Angular**: A framework for building scalable and maintainable applications.
+- **Firebase**: A real-time database, authentication, and cloud functions.
+- **SASS**: A CSS preprocessor that makes stylesheets more flexible and easier to maintain.
+- **Play Store Deployment**: Learn how to package your app and deploy it on Google Play Store.
 
-cd ionic-capacitor-login-angular-firebase
-npm install
-Install Ionic and Capacitor CLI globally (if not already installed):
+## Installation
+1. Clone the repository:
+   git clone https://github.com/dulphyj/IonicProject.git
 
-npm install -g @ionic/cli
-npm install @capacitor/cli
-Initialize the Capacitor project:
+2. Install dependencies:
+   cd ionic-capacitor-login-angular-firebase
+   npm install
 
-ionic init
-Set up Firebase in your project:
+3. Install **Ionic** and **Capacitor CLI** globally (if not already installed):
+   npm install -g @ionic/cli
+   npm install @capacitor/cli
 
-Create a Firebase project on Firebase Console.
-Add your Firebase configuration details to the project.
-Usage
+4. Initialize the project with Capacitor:
+   ionic init
+
+5. Set up Firebase for your project:
+   - Create a project on the [Firebase Console](https://console.firebase.google.com/).
+   - Add Firebase configuration details to your project.
+
+## Usage
 To run the app locally on your device or emulator, use the following commands:
 
-Run in a browser:
+- **Run in the browser**:
+  ionic serve
 
-ionic serve
-Run on Android (requires Android Studio setup):
+- **Run on a device or emulator**:
+  ionic capacitor run android
 
-ionic capacitor run android
-Run on iOS (requires Xcode and an Apple Developer account):
+## Contributions
+If you'd like to contribute to this project, please follow these steps:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/new-feature`).
+3. Make your changes and commit them (`git commit -am 'Add new feature'`).
+4. Push your changes to your fork (`git push origin feature/new-feature`).
+5. Open a pull request.
 
-ionic capacitor run ios
-Contributing
-If you would like to contribute to this project, feel free to fork the repository, create a branch, and submit a pull request. We welcome all improvements and bug fixes!
-
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+## License
+This project is licensed under the **MIT** License. For more details, please refer to the [LICENSE](LICENSE) file.
