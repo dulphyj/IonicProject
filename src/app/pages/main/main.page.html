@@ -4,7 +4,7 @@
 <ion-content class="ion-text-center">
 
   <ion-avatar>
-    <img *ngIf="user()?.img" [src]="user()?.img" alt="user">
+    <img *ngIf="user()?.img" [src]="user().img" alt="user">
     <ion-icon *ngIf="!user()?.img" class="empty-icon" name="person-circle-outline"></ion-icon>
   </ion-avatar>
 

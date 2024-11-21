@@ -1,0 +1,14 @@
+.d-flex-center{
+    height: 90vh;
+}
+
+.glass{
+    /* From https://css.glass */
+background: rgba(33, 34, 155, 0.36);
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(4px);
+-webkit-backdrop-filter: blur(4px);
+border: 1px solid rgba(33, 34, 155, 0.51);
+width: 100%;
+height: 100%;
+}

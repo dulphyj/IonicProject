@@ -1,7 +1,7 @@
 <app-header [showMenu]="true" title="Profile"></app-header>
 <ion-content class="ion-padding-top ion-text-center">
   <ion-avatar>
-    <img *ngIf="user()?.img" [src]="user()?.img" alt="user">
+    <img *ngIf="user()?.img" [src]="user().img" alt="user">
     <ion-icon *ngIf="!user()?.img" class="empty-icon" name="person-circle-outline"></ion-icon>
   </ion-avatar>
   <ion-button shape="round" class="photo-btn" (click)="takeImage()" size="small" mode="ios">
