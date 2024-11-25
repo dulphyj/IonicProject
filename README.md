@@ -84,6 +84,13 @@ export const environment = {
 
 ```	
 
+## Ensure the files are excluded from version control: 
+Add the src/environments folder to your ´.gitignore´ to avoid pushing sensitive information to your repository:
+```bash
+echo "src/environments" >> .gitignore
+git add .gitignore
+git commit -m "Add environments folder to .gitignore"
+```
 
 ## Usage
 To run the app locally on your device or emulator, use the following commands:
